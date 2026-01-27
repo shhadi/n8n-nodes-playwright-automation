@@ -10,6 +10,7 @@ import {
 import { takeScreenshot } from './actions/media';
 import { type IController } from './controllers/IController';
 import { PageController } from './controllers/PageController';
+import { ScriptController } from './controllers/ScriptController';
 import { SessionController } from './controllers/SessionController';
 import { playwrightNodeProperties } from './PlaywrightAutomation.properties';
 import { PlaywrightManager } from './PlaywrightManager';
@@ -41,6 +42,7 @@ export class PlaywrightAutomation implements INodeType {
 		const controllers: Record<ResourceType, IController> = {
 			[ResourceType.Session]: new SessionController(),
 			[ResourceType.Page]: new PageController(),
+			[ResourceType.Script]: new ScriptController(),
 		};
 
 		for (let i = 0; i < items.length; i++) {

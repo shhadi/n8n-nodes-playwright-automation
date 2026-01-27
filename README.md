@@ -1,247 +1,239 @@
-![Banner image](https://user-images.githubusercontent.com/10284570/173569848-c624317f-42b1-45a6-ab09-f0ea3c247648.png)
+<div align="center">
+  <img src="./nodes/PlaywrightAutomation/playwright-automation.svg" width="120" alt="n8n-nodes-playwright-automation Logo" />
+  <h1>n8n-nodes-playwright-automation</h1>
 
-# n8n-nodes-starter
+  <p>
+    <b>Community Playwright integration for n8n.</b><br>
+    Run reliable headless browser automations (scraping, form filling, login flows, PDF/screenshots, E2E checks) powered by Playwright — directly inside n8n workflows.
+  </p>
 
-This starter repository helps you build custom integrations for [n8n](https://n8n.io). It includes example nodes, credentials, the node linter, and all the tooling you need to get started.
+  <p>
+    <a href="https://www.npmjs.com/package/n8n-nodes-playwright-automation">
+      <img src="https://img.shields.io/npm/v/n8n-nodes-playwright-automation?color=red&logo=npm" alt="npm version" />
+    </a>
+    <a href="https://github.com/shhadi/n8n-nodes-playwright-automation/actions/workflows/ci.yml">
+      <img src="https://github.com/shhadi/n8n-nodes-playwright-automation/actions/workflows/ci.yml/badge.svg" alt="Build Status" />
+    </a>
+    <a href="https://github.com/shhadi/n8n-nodes-playwright-automation/blob/main/LICENSE">
+      <img src="https://img.shields.io/npm/l/n8n-nodes-playwright-automation" alt="License" />
+    </a>
+    <a href="https://www.linkedin.com/in/shhadi-masarwa/">
+      <img src="https://img.shields.io/badge/LinkedIn-Connect-blue?logo=linkedin" alt="LinkedIn" />
+    </a>
+  </p>
+</div>
 
-## Quick Start
+---
 
-> [!TIP]
-> **New to building n8n nodes?** The fastest way to get started is with `npm create @n8n/node`. This command scaffolds a complete node package for you using the [@n8n/node-cli](https://www.npmjs.com/package/@n8n/node-cli).
+## 🚀 Features
 
-**To create a new node package from scratch:**
+This node allows you to control a headless browser to automate complex web tasks.
 
-```bash
-npm create @n8n/node
+### Session
+
+| Operation | Description |
+|-----------|-------------|
+| **Create** | Start a new browser session (Chromium/Firefox/WebKit) |
+| **Close** | Close an active session |
+| **Get Storage State** | Retrieve cookies and storage state (e.g., to save and reuse login sessions) |
+
+### Page Interaction
+
+| Operation | Description |
+|-----------|-------------|
+| **Navigate** | Go to a specific URL |
+| **Click** | Click elements using smart selectors |
+| **Type/Fill** | Fill forms and input fields |
+| **Wait** | Wait for a specific duration or for elements to appear |
+| **Get Text/HTML/Attribute** | Extract data from the page |
+| **Count Elements** | Count occurrences of an element |
+| **Upload File** | Upload files to input fields |
+
+### Capture
+
+| Operation | Description |
+|-----------|-------------|
+| **Screenshot** | Capture visible page or full page screenshots |
+| **PDF** | Generate a PDF of the current page |
+
+### Script (Advanced)
+
+| Operation | Description |
+|-----------|-------------|
+| **Run Script** | Execute custom JavaScript code with full Playwright API access |
+
+---
+
+## 📜 Custom Script Feature
+
+For advanced automation scenarios where predefined operations aren't sufficient, you can run custom Playwright scripts.
+
+### How It Works
+
+The **Script → Run Script** operation allows you to write JavaScript code that has direct access to:
+- `page` - The Playwright [Page](https://playwright.dev/docs/api/class-page) object
+- `context` - The Playwright [BrowserContext](https://playwright.dev/docs/api/class-browsercontext) object
+
+### Example Usage
+
+```javascript
+// Get page information
+const title = await page.title();
+const url = page.url();
+
+// Interact with elements
+await page.click('button.submit');
+await page.fill('#email', 'user@example.com');
+
+// Wait for network requests
+await page.waitForResponse(resp => resp.url().includes('/api/'));
+
+// Extract data
+const items = await page.$$eval('.product', els => 
+  els.map(el => ({
+    name: el.querySelector('.name').textContent,
+    price: el.querySelector('.price').textContent
+  }))
+);
+
+// Return data to the n8n workflow
+return { title, url, items };
 ```
 
-**Already using this starter? Start developing with:**
+### Output
 
-```bash
-npm run dev
+The script's return value is included in the node output:
+
+```json
+{
+  "success": true,
+  "action": "runScript",
+  "returnValue": {
+    "title": "Example Shop",
+    "url": "https://example.com/products",
+    "items": [...]
+  },
+  "executionTimeMs": 142
+}
 ```
 
-This starts n8n with your nodes loaded and hot reload enabled.
-
-## What's Included
-
-This starter repository includes two example nodes to learn from:
-
-- **[Example Node](nodes/Example/)** - A simple starter node that shows the basic structure with a custom `execute` method
-- **[GitHub Issues Node](nodes/GithubIssues/)** - A complete, production-ready example built using the **declarative style**:
-  - **Low-code approach** - Define operations declaratively without writing request logic
-  - Multiple resources (Issues, Comments)
-  - Multiple operations (Get, Get All, Create)
-  - Two authentication methods (OAuth2 and Personal Access Token)
-  - List search functionality for dynamic dropdowns
-  - Proper error handling and typing
-  - Ideal for HTTP API-based integrations
-
 > [!TIP]
-> The declarative/low-code style (used in GitHub Issues) is the recommended approach for building nodes that interact with HTTP APIs. It significantly reduces boilerplate code and handles requests automatically.
+> Use custom scripts for complex scenarios like multi-step login flows, infinite scroll handling, or interacting with dynamic SPAs.
 
-Browse these examples to understand both approaches, then modify them or create your own.
+---
 
-## Finding Inspiration
+## 📦 Installation
 
-Looking for more examples? Check out these resources:
+### n8n Community Nodes
 
-- **[npm Community Nodes](https://www.npmjs.com/search?q=keywords:n8n-community-node-package)** - Browse thousands of community-built nodes on npm using the `n8n-community-node-package` tag
-- **[n8n Built-in Nodes](https://github.com/n8n-io/n8n/tree/master/packages/nodes-base/nodes)** - Study the source code of n8n's official nodes for production-ready patterns and best practices
-- **[n8n Credentials](https://github.com/n8n-io/n8n/tree/master/packages/nodes-base/credentials)** - See how authentication is implemented for various services
+1. Go to **Settings** → **Community Nodes**
+2. Select **Install**
+3. Enter `n8n-nodes-playwright-automation`
+4. Agree to the risks and select **Install**
 
-These are excellent resources to understand how to structure your nodes, handle different API patterns, and implement advanced features.
+### Manual Installation
 
-## Prerequisites
+```bash
+npm install n8n-nodes-playwright-automation
+```
 
-Before you begin, install the following on your development machine:
+---
 
-### Required
+## 🐳 Docker Support
+
+To run this node in Docker, you must ensure the Playwright browser dependencies are installed in your n8n container.
+
+Add the following to your `Dockerfile`:
+
+```dockerfile
+FROM n8nio/n8n:latest
+
+USER root
+# Install Playwright and dependencies
+RUN npm install -g playwright
+RUN npx playwright install-deps
+RUN npx playwright install chromium
+USER node
+```
+
+---
+
+## 🛠️ Development
+
+### Prerequisites
 
 - **[Node.js](https://nodejs.org/)** (v22 or higher) and npm
-  - Linux/Mac/WSL: Install via [nvm](https://github.com/nvm-sh/nvm)
-  - Windows: Follow [Microsoft's NodeJS guide](https://learn.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-on-windows)
 - **[git](https://git-scm.com/downloads)**
 
-### Recommended
-
-- Follow n8n's [development environment setup guide](https://docs.n8n.io/integrations/creating-nodes/build/node-development-environment/)
-
-> [!NOTE]
-> The `@n8n/node-cli` is included as a dev dependency and will be installed automatically when you run `npm install`. The CLI includes n8n for local development, so you don't need to install n8n globally.
-
-## Getting Started with this Starter
-
-Follow these steps to create your own n8n community node package:
-
-### 1. Create Your Repository
-
-[Generate a new repository](https://github.com/n8n-io/n8n-nodes-starter/generate) from this template, then clone it:
+### Getting Started
 
 ```bash
-git clone https://github.com/<your-organization>/<your-repo-name>.git
-cd <your-repo-name>
-```
+# Clone the repository
+git clone https://github.com/shhadi/n8n-nodes-playwright-automation.git
+cd n8n-nodes-playwright-automation
 
-### 2. Install Dependencies
-
-```bash
+# Install dependencies
 npm install
-```
 
-This installs all required dependencies including the `@n8n/node-cli`.
-
-### 3. Explore the Examples
-
-Browse the example nodes in [nodes/](nodes/) and [credentials/](credentials/) to understand the structure:
-
-- Start with [nodes/Example/](nodes/Example/) for a basic node
-- Study [nodes/GithubIssues/](nodes/GithubIssues/) for a real-world implementation
-
-### 4. Build Your Node
-
-Edit the example nodes to fit your use case, or create new node files by copying the structure from [nodes/Example/](nodes/Example/).
-
-> [!TIP]
-> If you want to scaffold a completely new node package, use `npm create @n8n/node` to start fresh with the CLI's interactive generator.
-
-### 5. Configure Your Package
-
-Update `package.json` with your details:
-
-- `name` - Your package name (must start with `n8n-nodes-`)
-- `author` - Your name and email
-- `repository` - Your repository URL
-- `description` - What your node does
-
-Make sure your node is registered in the `n8n.nodes` array.
-
-### 6. Develop and Test Locally
-
-Start n8n with your node loaded:
-
-```bash
+# Start development server
 npm run dev
 ```
 
-This command runs `n8n-node dev` which:
+### Available Scripts
 
-- Builds your node with watch mode
-- Starts n8n with your node available
-- Automatically rebuilds when you make changes
-- Opens n8n in your browser (usually http://localhost:5678)
+| Script | Description |
+|--------|-------------|
+| `npm run dev` | Start n8n with your node and watch for changes |
+| `npm run build` | Compile TypeScript to JavaScript for production |
+| `npm run lint` | Check your code for errors and style issues |
+| `npm run lint:fix` | Automatically fix linting issues when possible |
 
-You can now test your node in n8n workflows!
+---
 
-> [!NOTE]
-> Learn more about CLI commands in the [@n8n/node-cli documentation](https://www.npmjs.com/package/@n8n/node-cli).
+## 🤝 Contributing
 
-### 7. Lint Your Code
+Contributions are welcome! We'd love to have you help improve this project.
 
-Check for errors:
+Please read our [Contributing Guidelines](CONTRIBUTING.md) to get started. This guide includes:
 
-```bash
-npm run lint
-```
+- Development setup instructions
+- How to submit pull requests
+- Coding standards and best practices
+- Reporting issues
 
-Auto-fix issues when possible:
+Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
 
-```bash
-npm run lint:fix
-```
+---
 
-### 8. Build for Production
+## ✨ Contributors
 
-When ready to publish:
+Thanks goes to these wonderful people:
 
-```bash
-npm run build
-```
+<a href="https://github.com/shhadi/n8n-nodes-playwright-automation/graphs/contributors">
+  <img src="https://contributors-img.web.app/image?repo=shhadi/n8n-nodes-playwright-automation" alt="Contributors" />
+</a>
 
-This compiles your TypeScript code to the `dist/` folder.
+---
 
-### 9. Prepare for Publishing
+## 👨‍💻 Maintainer
 
-Before publishing:
+<div align="center">
+  <h3>Shhadi Masarwa</h3>
+  <p><i>A human who’s a dad and an engineer who loves making things work better.</i></p>
+  
+  <p>
+    <a href="mailto:shhadi.masarwa@gmail.com">
+      <img src="https://img.shields.io/badge/-Email-EA4335?style=for-the-badge&logo=Gmail&logoColor=white" alt="Email" />
+    </a>
+    <a href="https://il.linkedin.com/in/shhadim">
+      <img src="https://img.shields.io/badge/-LinkedIn-0A66C2?style=for-the-badge&logo=Linkedin&logoColor=white" alt="LinkedIn" />
+    </a>
+    <a href="https://github.com/shhadi">
+      <img src="https://img.shields.io/badge/-GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white" alt="GitHub" />
+    </a>
+  </p>
+</div>
 
-1. **Update documentation**: Replace this README with your node's documentation. Use [README_TEMPLATE.md](README_TEMPLATE.md) as a starting point.
-2. **Update the LICENSE**: Add your details to the [LICENSE](LICENSE.md) file.
-3. **Test thoroughly**: Ensure your node works in different scenarios.
+---
 
-### 10. Publish to npm
-
-Publish your package to make it available to the n8n community:
-
-```bash
-npm publish
-```
-
-Learn more about [publishing to npm](https://docs.npmjs.com/packages-and-modules/contributing-packages-to-the-registry).
-
-### 11. Submit for Verification (Optional)
-
-Get your node verified for n8n Cloud:
-
-1. Ensure your node meets the [requirements](https://docs.n8n.io/integrations/creating-nodes/deploy/submit-community-nodes/):
-   - Uses MIT license ✅ (included in this starter)
-   - No external package dependencies
-   - Follows n8n's design guidelines
-   - Passes quality and security review
-
-2. Submit through the [n8n Creator Portal](https://creators.n8n.io/nodes)
-
-**Benefits of verification:**
-
-- Available directly in n8n Cloud
-- Discoverable in the n8n nodes panel
-- Verified badge for quality assurance
-- Increased visibility in the n8n community
-
-## Available Scripts
-
-This starter includes several npm scripts to streamline development:
-
-| Script                | Description                                                      |
-| --------------------- | ---------------------------------------------------------------- |
-| `npm run dev`         | Start n8n with your node and watch for changes (runs `n8n-node dev`) |
-| `npm run build`       | Compile TypeScript to JavaScript for production (runs `n8n-node build`) |
-| `npm run build:watch` | Build in watch mode (auto-rebuild on changes)                    |
-| `npm run lint`        | Check your code for errors and style issues (runs `n8n-node lint`) |
-| `npm run lint:fix`    | Automatically fix linting issues when possible (runs `n8n-node lint --fix`) |
-| `npm run release`     | Create a new release (runs `n8n-node release`)                   |
-
-> [!TIP]
-> These scripts use the [@n8n/node-cli](https://www.npmjs.com/package/@n8n/node-cli) under the hood. You can also run CLI commands directly, e.g., `npx n8n-node dev`.
-
-## Troubleshooting
-
-### My node doesn't appear in n8n
-
-1. Make sure you ran `npm install` to install dependencies
-2. Check that your node is listed in `package.json` under `n8n.nodes`
-3. Restart the dev server with `npm run dev`
-4. Check the console for any error messages
-
-### Linting errors
-
-Run `npm run lint:fix` to automatically fix most common issues. For remaining errors, check the [n8n node development guidelines](https://docs.n8n.io/integrations/creating-nodes/).
-
-### TypeScript errors
-
-Make sure you're using Node.js v22 or higher and have run `npm install` to get all type definitions.
-
-## Resources
-
-- **[n8n Node Documentation](https://docs.n8n.io/integrations/creating-nodes/)** - Complete guide to building nodes
-- **[n8n Community Forum](https://community.n8n.io/)** - Get help and share your nodes
-- **[@n8n/node-cli Documentation](https://www.npmjs.com/package/@n8n/node-cli)** - CLI tool reference
-- **[n8n Creator Portal](https://creators.n8n.io/nodes)** - Submit your node for verification
-- **[Submit Community Nodes Guide](https://docs.n8n.io/integrations/creating-nodes/deploy/submit-community-nodes/)** - Verification requirements and process
-
-## Contributing
-
-Have suggestions for improving this starter? [Open an issue](https://github.com/n8n-io/n8n-nodes-starter/issues) or submit a pull request!
-
-## License
-
-[MIT](https://github.com/n8n-io/n8n-nodes-starter/blob/master/LICENSE.md)
+## 📄 [License](LICENSE.md)
