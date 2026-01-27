@@ -138,20 +138,33 @@ npm install n8n-nodes-playwright-automation
 
 ## 🐳 Docker Support
 
-To run this node in Docker, you must ensure the Playwright browser dependencies are installed in your n8n container.
+To run this node in Docker, we provide a `docker-compose.yml` file that:
+1. Installs all required Playwright browser dependencies
+2. Mounts the built node code into n8n
+3. Persists n8n data
 
-Add the following to your `Dockerfile`:
+### Quick Start (Development Mode)
 
-```dockerfile
-FROM n8nio/n8n:latest
+This project includes a Docker setup optimized for development, running `npm run dev` inside a Node.js container with all Playwright dependencies pre-installed.
 
-USER root
-# Install Playwright and dependencies
-RUN npm install -g playwright
-RUN npx playwright install-deps
-RUN npx playwright install chromium
-USER node
-```
+1. **Start the Development Container**:
+   ```bash
+   docker-compose up -d --build
+   # Alternatively, use the shorthand -> npm run dev:docker
+   ```
+
+   This will build the image, install dependencies, and start n8n in development watch mode.
+
+2. **Access n8n**:
+   Open [http://localhost:5678](http://localhost:5678) in your browser.
+
+3. **Development**:
+   The source code is mounted into the container. Changes to the code will automatically trigger a rebuild/restart of the node (handled by `n8n-node dev`).
+
+### Configuration
+
+The provided `docker-compose.yml` uses a custom `Dockerfile` based on `node:22-bookworm` to ensure Playwright and its system dependencies are available.
+
 
 ---
 
