@@ -16,37 +16,48 @@
 		"url": "https://github.com/shhadi/n8n-nodes-playwright-automation.git"
 	},
 	"scripts": {
+		"clean": "rm -rf dist && rm -rf ~/.n8n-node-cli",
 		"build": "n8n-node build",
 		"build:watch": "tsc --watch",
 		"dev": "n8n-node dev",
+		"dev:clean": "npm run clean && npm run dev",
+		"test": "vitest run --coverage",
 		"lint": "n8n-node lint",
 		"lint:fix": "n8n-node lint --fix",
 		"release": "n8n-node release",
-		"prepublishOnly": "n8n-node prerelease"
+		"prepublishOnly": "n8n-node prerelease",
+		"cloud-support:disable": "npx n8n-node cloud-support disable",
+		"cloud-support:enable": "npx n8n-node cloud-support enable"
 	},
 	"files": [
 		"dist"
 	],
 	"n8n": {
 		"n8nNodesApiVersion": 1,
-		"strict": true,
-		"credentials": [
-			"dist/credentials/GithubIssuesApi.credentials.js",
-			"dist/credentials/GithubIssuesOAuth2Api.credentials.js"
-		],
+		"strict": false,
+		"credentials": [],
 		"nodes": [
-			"dist/nodes/GithubIssues/GithubIssues.node.js",
-			"dist/nodes/Example/Example.node.js"
+			"dist/nodes/playwright-automation/PlaywrightAutomation.node.js"
 		]
 	},
 	"devDependencies": {
 		"@n8n/node-cli": "*",
+		"@types/node": "^25.0.10",
+		"@vitest/coverage-v8": "^4.0.18",
 		"eslint": "9.32.0",
+		"eslint-plugin-import": "^2.32.0",
+		"eslint-plugin-security": "^3.0.1",
+		"eslint-plugin-unused-imports": "^4.3.0",
 		"prettier": "3.6.2",
 		"release-it": "^19.0.4",
-		"typescript": "5.9.2"
+		"typescript": "5.9.2",
+		"uuid": "^13.0.0",
+		"vitest": "^4.0.18"
 	},
 	"peerDependencies": {
 		"n8n-workflow": "*"
+	},
+	"dependencies": {
+		"playwright": "^1.58.0"
 	}
 }

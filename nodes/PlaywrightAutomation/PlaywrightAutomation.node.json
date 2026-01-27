@@ -1,0 +1,17 @@
+{
+	"node": "n8n-nodes-playwright-automation",
+	"nodeVersion": "1.0",
+	"codexVersion": "1.0",
+	"categories": [
+		"Development",
+		"Developer Tools",
+		"Automation"
+	],
+	"resources": {
+		"primaryDocumentation": [
+			{
+				"url": "https://github.com/org/repo?tab=readme-ov-file"
+			}
+		]
+	}
+}
