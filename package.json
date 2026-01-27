@@ -31,12 +31,9 @@
 		"n8nNodesApiVersion": 1,
 		"strict": false,
 		"credentials": [
-			"dist/credentials/GithubIssuesApi.credentials.js",
-			"dist/credentials/GithubIssuesOAuth2Api.credentials.js"
 		],
 		"nodes": [
-			"dist/nodes/GithubIssues/GithubIssues.node.js",
-			"dist/nodes/Example/Example.node.js"
+			"dist/nodes/playwright-automation/PlaywrightAutomation.node.js"
 		]
 	},
 	"devDependencies": {
@@ -44,7 +41,10 @@
 		"eslint": "9.32.0",
 		"prettier": "3.6.2",
 		"release-it": "^19.0.4",
-		"typescript": "5.9.2"
+		"typescript": "5.9.2",
+		"eslint-plugin-import": "^2.32.0",
+		"eslint-plugin-security": "^3.0.1",
+		"eslint-plugin-unused-imports": "^4.3.0"
 	},
 	"peerDependencies": {
 		"n8n-workflow": "*"
