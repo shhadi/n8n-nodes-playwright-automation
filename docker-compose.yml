@@ -8,23 +8,17 @@ services:
     ports:
       - "5678:5678"
     environment:
-      # Basic configuration
       - N8N_HOST=0.0.0.0
       - N8N_PORT=5678
       - N8N_PROTOCOL=http
       - WEBHOOK_URL=http://localhost:5678/
-      # Node configuration
       - NODE_FUNCTION_ALLOW_EXTERNAL=playwright
       - N8N_COMMUNITY_PACKAGES_ENABLED=true
-      # Timezone (adjust as needed)
       - GENERIC_TIMEZONE=UTC
       - TZ=UTC
     volumes:
-      # Mount current directory for live updates
       - .:/app
-      # Helper volume to avoid node_modules conflict
       - /app/node_modules
-      # Persist n8n data (n8n stores data in ~/.n8n, and we run as root)
       - n8n_data:/root/.n8n
     user: root
 
