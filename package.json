@@ -37,6 +37,7 @@
 	},
 	"devDependencies": {
 		"@n8n/node-cli": "*",
+		"@types/node": "^25.0.10",
 		"eslint": "9.32.0",
 		"eslint-plugin-import": "^2.32.0",
 		"eslint-plugin-security": "^3.0.1",
@@ -48,5 +49,8 @@
 	},
 	"peerDependencies": {
 		"n8n-workflow": "*"
+	},
+	"dependencies": {
+		"playwright": "^1.58.0"
 	}
 }
