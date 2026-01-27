@@ -14,11 +14,8 @@
     <a href="https://github.com/shhadi/n8n-nodes-playwright-automation/actions/workflows/ci.yml">
       <img src="https://github.com/shhadi/n8n-nodes-playwright-automation/actions/workflows/ci.yml/badge.svg" alt="Build Status" />
     </a>
-    <a href="https://github.com/shhadi/n8n-nodes-playwright-automation/blob/main/LICENSE">
+    <a href="https://github.com/shhadi/n8n-nodes-playwright-automation/blob/main/LICENSE.md">
       <img src="https://img.shields.io/npm/l/n8n-nodes-playwright-automation" alt="License" />
-    </a>
-    <a href="https://www.linkedin.com/in/shhadi-masarwa/">
-      <img src="https://img.shields.io/badge/LinkedIn-Connect-blue?logo=linkedin" alt="LinkedIn" />
     </a>
   </p>
 </div>
@@ -111,7 +108,7 @@ The script's return value is included in the node output:
   "returnValue": {
     "title": "Example Shop",
     "url": "https://example.com/products",
-    "items": [...]
+    "items": [ ]
   },
   "executionTimeMs": 142
 }
