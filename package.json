@@ -1,5 +1,5 @@
 {
-	"name": "n8n-nodes-<...>",
+	"name": "n8n-nodes-playwright-automation",
 	"version": "0.1.0",
 	"description": "",
 	"license": "MIT",
@@ -8,8 +8,8 @@
 		"n8n-community-node-package"
 	],
 	"author": {
-		"name": "",
-		"email": ""
+		"name": "Shhadi Masarwa",
+		"email": "shhadi.masarwa@gmail.com"
 	},
 	"repository": {
 		"type": "git",
