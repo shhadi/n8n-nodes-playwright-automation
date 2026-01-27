@@ -12,8 +12,8 @@ COPY package.json package-lock.json ./
 RUN npm install
 
 # Install Playwright dependencies (Debian-based)
-RUN npx playwright install-deps
-RUN npx playwright install chromium
+#RUN npx playwright install-deps
+#RUN npx playwright install chromium
 
 # Copy source code
 COPY . .
