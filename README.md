@@ -215,13 +215,24 @@ Thanks goes to these wonderful people:
 
 ---
 
-## 👨‍💻 Developer
+## 👨‍💻 Maintainer
 
-**Shhadi Masarwa**
-
-<a href="https://www.linkedin.com/in/shhadi-masarwa/">
-  <img src="https://img.shields.io/badge/Connect_on_LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="Connect on LinkedIn" />
-</a>
+<div align="center">
+  <h3>Shhadi Masarwa</h3>
+  <p><i>A human who’s a dad and an engineer who loves making things work better.</i></p>
+  
+  <p>
+    <a href="mailto:shhadi.masarwa@gmail.com">
+      <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" />
+    </a>
+    <a href="https://il.linkedin.com/in/shhadim">
+      <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />
+    </a>
+    <a href="https://github.com/shhadi">
+      <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" />
+    </a>
+  </p>
+</div>
 
 ---
 
