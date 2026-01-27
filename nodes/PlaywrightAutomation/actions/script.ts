@@ -10,7 +10,7 @@ export async function runScript(
     const startTime = Date.now();
 
     // Create async function from code that receives page and context
-    // eslint-disable-next-line @typescript-eslint/no-implied-eval
+     
     const asyncFn = new Function('page', 'context',
         `return (async () => { ${scriptCode} })();`
     ) as (page: Page, context: BrowserContext) => Promise<unknown>;
