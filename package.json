@@ -16,13 +16,17 @@
 		"url": "https://github.com/shhadi/n8n-nodes-playwright-automation.git"
 	},
 	"scripts": {
+		"clean": "rm -rf dist && rm -rf ~/.n8n-node-cli",
 		"build": "n8n-node build",
 		"build:watch": "tsc --watch",
 		"dev": "n8n-node dev",
+		"dev:clean": "npm run clean && npm run dev",
 		"lint": "n8n-node lint",
 		"lint:fix": "n8n-node lint --fix",
 		"release": "n8n-node release",
-		"prepublishOnly": "n8n-node prerelease"
+		"prepublishOnly": "n8n-node prerelease",
+		"cloud-support:disable": "npx n8n-node cloud-support disable",
+		"cloud-support:enable": "npx n8n-node cloud-support enable"
 	},
 	"files": [
 		"dist"
