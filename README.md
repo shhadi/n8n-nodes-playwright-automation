@@ -143,28 +143,25 @@ To run this node in Docker, we provide a `docker-compose.yml` file that:
 2. Mounts the built node code into n8n
 3. Persists n8n data
 
-### Quick Start with Docker Compose
+### Quick Start (Development Mode)
 
-1. **Build the node**:
-   ```bash
-   npm run build
-   ```
+This project includes a Docker setup optimized for development, running `npm run dev` inside a Node.js container with all Playwright dependencies pre-installed.
 
-2. **Start n8n**:
+1. **Start the Development Container**:
    ```bash
    docker-compose up -d --build
    ```
+   This will build the image, install dependencies, and start n8n in development watch mode.
 
-3. **Access n8n**:
+2. **Access n8n**:
    Open [http://localhost:5678](http://localhost:5678) in your browser.
 
-The custom node will be automatically loaded and ready to use.
+3. **Development**:
+   The source code is mounted into the container. Changes to the code will automatically trigger a rebuild/restart of the node (handled by `n8n-node dev`).
 
 ### Configuration
 
-The provided `docker-compose.yml` file uses a custom `Dockerfile` to ensure all Playwright browser dependencies are installed.
-
-If you need to customize the image further, edit the `Dockerfile` directly.
+The provided `docker-compose.yml` uses a custom `Dockerfile` based on `node:22-bookworm` to ensure Playwright and its system dependencies are available.
 
 
 ---

@@ -20,18 +20,13 @@ services:
       - GENERIC_TIMEZONE=UTC
       - TZ=UTC
     volumes:
-      # Persist n8n data
-      - n8n_data:/home/node/.n8n
-      # Mount the built node package
-      - ./dist:/home/node/.n8n/custom/node_modules/n8n-nodes-playwright-automation/dist:ro
-      - ./package.json:/home/node/.n8n/custom/node_modules/n8n-nodes-playwright-automation/package.json:ro
+      # Mount current directory for live updates
+      - .:/app
+      # Helper volume to avoid node_modules conflict
+      - /app/node_modules
+      # Persist n8n data (n8n stores data in ~/.n8n, and we run as root)
+      - n8n_data:/root/.n8n
     user: root
-    # healthcheck:
-    #   test: ["CMD-SHELL", "wget -qO- http://localhost:5678/healthz || exit 1"]
-    #   interval: 30s
-    #   timeout: 10s
-    #   retries: 3
-    #   start_period: 60s
 
 volumes:
   n8n_data:
