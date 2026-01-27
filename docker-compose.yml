@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: n8n-playwright
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      # Basic configuration
+      - N8N_HOST=0.0.0.0
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - WEBHOOK_URL=http://localhost:5678/
+      # Node configuration
+      - NODE_FUNCTION_ALLOW_EXTERNAL=playwright
+      - N8N_COMMUNITY_PACKAGES_ENABLED=true
+      # Timezone (adjust as needed)
+      - GENERIC_TIMEZONE=UTC
+      - TZ=UTC
+    volumes:
+      # Persist n8n data
+      - n8n_data:/home/node/.n8n
+      # Mount the built node package
+      - ./dist:/home/node/.n8n/custom/node_modules/n8n-nodes-playwright-automation/dist:ro
+      - ./package.json:/home/node/.n8n/custom/node_modules/n8n-nodes-playwright-automation/package.json:ro
+    user: root
+    command: >
+      /bin/sh -c "
+        # Install Playwright browsers and dependencies
+        npx playwright install --with-deps chromium &&
+        # Start n8n
+        n8n start
+      "
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:5678/healthz || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+volumes:
+  n8n_data:
+    driver: local
