@@ -21,6 +21,7 @@
 		"build:watch": "tsc --watch",
 		"dev": "n8n-node dev",
 		"dev:clean": "npm run clean && npm run dev",
+		"test": "vitest run --coverage",
 		"lint": "n8n-node lint",
 		"lint:fix": "n8n-node lint --fix",
 		"release": "n8n-node release",
@@ -42,6 +43,7 @@
 	"devDependencies": {
 		"@n8n/node-cli": "*",
 		"@types/node": "^25.0.10",
+		"@vitest/coverage-v8": "^4.0.18",
 		"eslint": "9.32.0",
 		"eslint-plugin-import": "^2.32.0",
 		"eslint-plugin-security": "^3.0.1",
