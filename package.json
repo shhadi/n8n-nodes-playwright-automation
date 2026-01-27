@@ -30,8 +30,7 @@
 	"n8n": {
 		"n8nNodesApiVersion": 1,
 		"strict": false,
-		"credentials": [
-		],
+		"credentials": [],
 		"nodes": [
 			"dist/nodes/playwright-automation/PlaywrightAutomation.node.js"
 		]
@@ -39,12 +38,13 @@
 	"devDependencies": {
 		"@n8n/node-cli": "*",
 		"eslint": "9.32.0",
+		"eslint-plugin-import": "^2.32.0",
+		"eslint-plugin-security": "^3.0.1",
+		"eslint-plugin-unused-imports": "^4.3.0",
 		"prettier": "3.6.2",
 		"release-it": "^19.0.4",
 		"typescript": "5.9.2",
-		"eslint-plugin-import": "^2.32.0",
-		"eslint-plugin-security": "^3.0.1",
-		"eslint-plugin-unused-imports": "^4.3.0"
+		"uuid": "^13.0.0"
 	},
 	"peerDependencies": {
 		"n8n-workflow": "*"
