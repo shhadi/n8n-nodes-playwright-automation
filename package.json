@@ -1,19 +1,19 @@
 {
-	"name": "n8n-nodes-<...>",
+	"name": "n8n-nodes-playwright-automation",
 	"version": "0.1.0",
-	"description": "",
+	"description": "Community Playwright integration for n8n. Run reliable headless browser automations (scraping, form filling, login flows, PDF/screenshots, E2E checks) powered by Playwright — directly inside n8n workflows.",
 	"license": "MIT",
 	"homepage": "",
 	"keywords": [
 		"n8n-community-node-package"
 	],
 	"author": {
-		"name": "",
-		"email": ""
+		"name": "Shhadi Masarwa",
+		"email": "shhadi.masarwa@gmail.com"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/<...>/n8n-nodes-<...>.git"
+		"url": "https://github.com/shhadi/n8n-nodes-playwright-automation.git"
 	},
 	"scripts": {
 		"build": "n8n-node build",
