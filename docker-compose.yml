@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   n8n:
-    image: n8nio/n8n:latest
+    build: .
     container_name: n8n-playwright
     restart: unless-stopped
     ports:
@@ -26,19 +26,12 @@ services:
       - ./dist:/home/node/.n8n/custom/node_modules/n8n-nodes-playwright-automation/dist:ro
       - ./package.json:/home/node/.n8n/custom/node_modules/n8n-nodes-playwright-automation/package.json:ro
     user: root
-    command: >
-      /bin/sh -c "
-        # Install Playwright browsers and dependencies
-        npx playwright install --with-deps chromium &&
-        # Start n8n
-        n8n start
-      "
-    healthcheck:
-      test: ["CMD-SHELL", "wget -qO- http://localhost:5678/healthz || exit 1"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 60s
+    # healthcheck:
+    #   test: ["CMD-SHELL", "wget -qO- http://localhost:5678/healthz || exit 1"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 3
+    #   start_period: 60s
 
 volumes:
   n8n_data:

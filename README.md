@@ -152,7 +152,7 @@ To run this node in Docker, we provide a `docker-compose.yml` file that:
 
 2. **Start n8n**:
    ```bash
-   docker-compose up -d
+   docker-compose up -d --build
    ```
 
 3. **Access n8n**:
@@ -160,20 +160,12 @@ To run this node in Docker, we provide a `docker-compose.yml` file that:
 
 The custom node will be automatically loaded and ready to use.
 
-### Manual Docker Setup
+### Configuration
 
-If you prefer building your own image, add the following to your `Dockerfile`:
+The provided `docker-compose.yml` file uses a custom `Dockerfile` to ensure all Playwright browser dependencies are installed.
 
-```dockerfile
-FROM n8nio/n8n:latest
+If you need to customize the image further, edit the `Dockerfile` directly.
 
-USER root
-# Install Playwright and dependencies
-RUN npm install -g playwright
-RUN npx playwright install-deps
-RUN npx playwright install chromium
-USER node
-```
 
 ---
 
