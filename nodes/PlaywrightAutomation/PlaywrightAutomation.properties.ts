@@ -1,6 +1,6 @@
 import type { INodeProperties } from 'n8n-workflow';
 
-import { ResourceType, SessionOperation, BrowserType, PageOperation, WaitType } from './types';
+import { ResourceType, SessionOperation, BrowserType, PageOperation, ScriptOperation, WaitType } from './types';
 
 export const playwrightNodeProperties: INodeProperties[] = [
     {
@@ -17,6 +17,10 @@ export const playwrightNodeProperties: INodeProperties[] = [
             {
                 name: 'Page',
                 value: ResourceType.Page,
+            },
+            {
+                name: 'Script',
+                value: ResourceType.Script,
             },
         ],
     },
@@ -110,6 +114,54 @@ export const playwrightNodeProperties: INodeProperties[] = [
             { name: 'PDF', value: PageOperation.PDF, description: 'Generate PDF', action: 'Generate pdf' },
             { name: 'Upload File', value: PageOperation.Upload, description: 'Upload a file to an input', action: 'Upload a file' },
         ],
+    },
+
+    // ----------------------------------
+    //         Script Operations
+    // ----------------------------------
+    {
+        displayName: 'Operation',
+        name: 'operation',
+        type: 'options',
+        default: ScriptOperation.Run.valueOf(),
+        noDataExpression: true,
+        displayOptions: {
+            show: {
+                resource: [ResourceType.Script],
+            },
+        },
+        options: [
+            { name: 'Run Script', value: ScriptOperation.Run, description: 'Run a custom Playwright script', action: 'Run a custom script' },
+        ],
+    },
+    {
+        displayName: 'Session ID',
+        name: 'sessionId',
+        type: 'string',
+        default: '',
+        required: true,
+        displayOptions: {
+            show: {
+                resource: [ResourceType.Script],
+            },
+        },
+    },
+    {
+        displayName: 'Script Code',
+        name: 'scriptCode',
+        type: 'string',
+        typeOptions: {
+            rows: 10,
+        },
+        default: '// Access page and context objects\n// Example: const title = await page.title();\n// Return a value to include in output\nreturn { success: true };',
+        required: true,
+        displayOptions: {
+            show: {
+                resource: [ResourceType.Script],
+                operation: [ScriptOperation.Run],
+            },
+        },
+        description: 'Custom JavaScript code to execute. Has access to "page" and "context" objects.',
     },
     {
         displayName: 'Session ID',
