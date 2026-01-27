@@ -1,48 +1,228 @@
-# n8n-nodes-_node-name_
+<div align="center">
+  <img src="./nodes/PlaywrightAutomation/playwright-automation.svg" width="120" alt="n8n-nodes-playwright-automation Logo" />
+  <h1>n8n-nodes-playwright-automation</h1>
 
-This is an n8n community node. It lets you use _app/service name_ in your n8n workflows.
+  <p>
+    <b>Community Playwright integration for n8n.</b><br>
+    Run reliable headless browser automations (scraping, form filling, login flows, PDF/screenshots, E2E checks) powered by Playwright — directly inside n8n workflows.
+  </p>
 
-_App/service name_ is _one or two sentences describing the service this node integrates with_.
+  <p>
+    <a href="https://www.npmjs.com/package/n8n-nodes-playwright-automation">
+      <img src="https://img.shields.io/npm/v/n8n-nodes-playwright-automation?color=red&logo=npm" alt="npm version" />
+    </a>
+    <a href="https://github.com/shhadi/n8n-nodes-playwright-automation/actions/workflows/ci.yml">
+      <img src="https://github.com/shhadi/n8n-nodes-playwright-automation/actions/workflows/ci.yml/badge.svg" alt="Build Status" />
+    </a>
+    <a href="https://github.com/shhadi/n8n-nodes-playwright-automation/blob/main/LICENSE">
+      <img src="https://img.shields.io/npm/l/n8n-nodes-playwright-automation" alt="License" />
+    </a>
+    <a href="https://www.linkedin.com/in/shhadi-masarwa/">
+      <img src="https://img.shields.io/badge/LinkedIn-Connect-blue?logo=linkedin" alt="LinkedIn" />
+    </a>
+  </p>
+</div>
 
-[n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/reference/license/) workflow automation platform.
+---
 
-[Installation](#installation)  
-[Operations](#operations)  
-[Credentials](#credentials)  <!-- delete if no auth needed -->  
-[Compatibility](#compatibility)  
-[Usage](#usage)  <!-- delete if not using this section -->  
-[Resources](#resources)  
-[Version history](#version-history)  <!-- delete if not using this section -->  
+## 🚀 Features
 
-## Installation
+This node allows you to control a headless browser to automate complex web tasks.
 
-Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes/installation/) in the n8n community nodes documentation.
+### Session
 
-## Operations
+| Operation | Description |
+|-----------|-------------|
+| **Create** | Start a new browser session (Chromium/Firefox/WebKit) |
+| **Close** | Close an active session |
+| **Get Storage State** | Retrieve cookies and storage state (e.g., to save and reuse login sessions) |
 
-_List the operations supported by your node._
+### Page Interaction
 
-## Credentials
+| Operation | Description |
+|-----------|-------------|
+| **Navigate** | Go to a specific URL |
+| **Click** | Click elements using smart selectors |
+| **Type/Fill** | Fill forms and input fields |
+| **Wait** | Wait for a specific duration or for elements to appear |
+| **Get Text/HTML/Attribute** | Extract data from the page |
+| **Count Elements** | Count occurrences of an element |
+| **Upload File** | Upload files to input fields |
 
-_If users need to authenticate with the app/service, provide details here. You should include prerequisites (such as signing up with the service), available authentication methods, and how to set them up._
+### Capture
 
-## Compatibility
+| Operation | Description |
+|-----------|-------------|
+| **Screenshot** | Capture visible page or full page screenshots |
+| **PDF** | Generate a PDF of the current page |
 
-_State the minimum n8n version, as well as which versions you test against. You can also include any known version incompatibility issues._
+### Script (Advanced)
 
-## Usage
+| Operation | Description |
+|-----------|-------------|
+| **Run Script** | Execute custom JavaScript code with full Playwright API access |
 
-_This is an optional section. Use it to help users with any difficult or confusing aspects of the node._
+---
 
-_By the time users are looking for community nodes, they probably already know n8n basics. But if you expect new users, you can link to the [Try it out](https://docs.n8n.io/try-it-out/) documentation to help them get started._
+## 📜 Custom Script Feature
 
-## Resources
+For advanced automation scenarios where predefined operations aren't sufficient, you can run custom Playwright scripts.
 
-* [n8n community nodes documentation](https://docs.n8n.io/integrations/#community-nodes)
-* _Link to app/service documentation._
+### How It Works
 
-## Version history
+The **Script → Run Script** operation allows you to write JavaScript code that has direct access to:
+- `page` - The Playwright [Page](https://playwright.dev/docs/api/class-page) object
+- `context` - The Playwright [BrowserContext](https://playwright.dev/docs/api/class-browsercontext) object
 
-_This is another optional section. If your node has multiple versions, include a short description of available versions and what changed, as well as any compatibility impact._
+### Example Usage
 
+```javascript
+// Get page information
+const title = await page.title();
+const url = page.url();
 
+// Interact with elements
+await page.click('button.submit');
+await page.fill('#email', 'user@example.com');
+
+// Wait for network requests
+await page.waitForResponse(resp => resp.url().includes('/api/'));
+
+// Extract data
+const items = await page.$$eval('.product', els => 
+  els.map(el => ({
+    name: el.querySelector('.name').textContent,
+    price: el.querySelector('.price').textContent
+  }))
+);
+
+// Return data to the n8n workflow
+return { title, url, items };
+```
+
+### Output
+
+The script's return value is included in the node output:
+
+```json
+{
+  "success": true,
+  "action": "runScript",
+  "returnValue": {
+    "title": "Example Shop",
+    "url": "https://example.com/products",
+    "items": [...]
+  },
+  "executionTimeMs": 142
+}
+```
+
+> [!TIP]
+> Use custom scripts for complex scenarios like multi-step login flows, infinite scroll handling, or interacting with dynamic SPAs.
+
+---
+
+## 📦 Installation
+
+### n8n Community Nodes
+
+1. Go to **Settings** → **Community Nodes**
+2. Select **Install**
+3. Enter `n8n-nodes-playwright-automation`
+4. Agree to the risks and select **Install**
+
+### Manual Installation
+
+```bash
+npm install n8n-nodes-playwright-automation
+```
+
+---
+
+## 🐳 Docker Support
+
+To run this node in Docker, you must ensure the Playwright browser dependencies are installed in your n8n container.
+
+Add the following to your `Dockerfile`:
+
+```dockerfile
+FROM n8nio/n8n:latest
+
+USER root
+# Install Playwright and dependencies
+RUN npm install -g playwright
+RUN npx playwright install-deps
+RUN npx playwright install chromium
+USER node
+```
+
+---
+
+## 🛠️ Development
+
+### Prerequisites
+
+- **[Node.js](https://nodejs.org/)** (v22 or higher) and npm
+- **[git](https://git-scm.com/downloads)**
+
+### Getting Started
+
+```bash
+# Clone the repository
+git clone https://github.com/shhadi/n8n-nodes-playwright-automation.git
+cd n8n-nodes-playwright-automation
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
+### Available Scripts
+
+| Script | Description |
+|--------|-------------|
+| `npm run dev` | Start n8n with your node and watch for changes |
+| `npm run build` | Compile TypeScript to JavaScript for production |
+| `npm run lint` | Check your code for errors and style issues |
+| `npm run lint:fix` | Automatically fix linting issues when possible |
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! We'd love to have you help improve this project.
+
+Please read our [Contributing Guidelines](CONTRIBUTING.md) to get started. This guide includes:
+
+- Development setup instructions
+- How to submit pull requests
+- Coding standards and best practices
+- Reporting issues
+
+Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
+
+---
+
+## ✨ Contributors
+
+Thanks goes to these wonderful people:
+
+<a href="https://github.com/shhadi/n8n-nodes-playwright-automation/graphs/contributors">
+  <img src="https://contributors-img.web.app/image?repo=shhadi/n8n-nodes-playwright-automation" alt="Contributors" />
+</a>
+
+---
+
+## 👨‍💻 Developer
+
+**Shhadi Masarwa**
+
+<a href="https://www.linkedin.com/in/shhadi-masarwa/">
+  <img src="https://img.shields.io/badge/Connect_on_LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="Connect on LinkedIn" />
+</a>
+
+---
+
+## 📄 [License](LICENSE.md)
