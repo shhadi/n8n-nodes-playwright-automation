@@ -249,5 +249,3 @@ Thanks goes to these wonderful people:
 </div>
 
 ---
-
-## 📄 [License](LICENSE.md)
