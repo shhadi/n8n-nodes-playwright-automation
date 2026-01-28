@@ -38,7 +38,7 @@
 		"strict": false,
 		"credentials": [],
 		"nodes": [
-			"dist/nodes/playwright-automation/PlaywrightAutomation.node.js"
+			"dist/nodes/PlaywrightAutomation/PlaywrightAutomation.node.js"
 		]
 	},
 	"devDependencies": {
