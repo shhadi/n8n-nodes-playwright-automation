@@ -149,10 +149,9 @@ This project includes a Docker setup optimized for development, running `npm run
 
 1. **Start the Development Container**:
    ```bash
-   docker-compose up -d --build
+   docker compose up -d --build
    # Alternatively, use the shorthand -> npm run dev:docker
    ```
-
    This will build the image, install dependencies, and start n8n in development watch mode.
 
 2. **Access n8n**:
