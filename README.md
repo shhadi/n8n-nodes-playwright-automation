@@ -15,7 +15,7 @@
       <img src="https://github.com/shhadi/n8n-nodes-playwright-automation/actions/workflows/ci.yml/badge.svg" alt="Build Status" />
     </a>
     <a href="https://github.com/shhadi/n8n-nodes-playwright-automation/blob/main/LICENSE.md">
-      <img src="https://img.shields.io/npm/l/n8n-nodes-playwright-automation" alt="License" />
+      <img src="https://img.shields.io/github/license/shhadi/n8n-nodes-playwright-automation" alt="License" />
     </a>
   </p>
 </div>
