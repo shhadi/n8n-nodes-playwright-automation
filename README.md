@@ -15,7 +15,7 @@
       <img src="https://github.com/shhadi/n8n-nodes-playwright-automation/actions/workflows/ci.yml/badge.svg" alt="Build Status" />
     </a>
     <a href="https://github.com/shhadi/n8n-nodes-playwright-automation/blob/main/LICENSE.md">
-      <img src="https://img.shields.io/npm/l/n8n-nodes-playwright-automation" alt="License" />
+      <img src="https://img.shields.io/github/license/shhadi/n8n-nodes-playwright-automation" alt="License" />
     </a>
   </p>
 </div>
@@ -148,11 +148,15 @@ To run this node in Docker, we provide a `docker-compose.yml` file that:
 This project includes a Docker setup optimized for development, running `npm run dev` inside a Node.js container with all Playwright dependencies pre-installed.
 
 1. **Start the Development Container**:
+   Using Docker directly:
    ```bash
-   docker-compose up -d --build
-   # Alternatively, use the shorthand -> npm run dev:docker
+   docker compose up -d --build
    ```
 
+   **Alternative (Shorthand)**:
+   ```bash
+   npm run dev:docker
+   ```
    This will build the image, install dependencies, and start n8n in development watch mode.
 
 2. **Access n8n**:
@@ -217,8 +221,6 @@ Please note that this project is released with a [Contributor Code of Conduct](C
 
 ## ✨ Contributors
 
-Thanks goes to these wonderful people:
-
 <a href="https://github.com/shhadi/n8n-nodes-playwright-automation/graphs/contributors">
   <img src="https://contributors-img.web.app/image?repo=shhadi/n8n-nodes-playwright-automation" alt="Contributors" />
 </a>
@@ -245,5 +247,3 @@ Thanks goes to these wonderful people:
 </div>
 
 ---
-
-## 📄 [License](LICENSE.md)
