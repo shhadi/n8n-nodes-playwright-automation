@@ -221,8 +221,6 @@ Please note that this project is released with a [Contributor Code of Conduct](C
 
 ## ✨ Contributors
 
-Thanks goes to these wonderful people:
-
 <a href="https://github.com/shhadi/n8n-nodes-playwright-automation/graphs/contributors">
   <img src="https://contributors-img.web.app/image?repo=shhadi/n8n-nodes-playwright-automation" alt="Contributors" />
 </a>
