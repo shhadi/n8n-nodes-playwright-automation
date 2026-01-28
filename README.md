@@ -148,9 +148,14 @@ To run this node in Docker, we provide a `docker-compose.yml` file that:
 This project includes a Docker setup optimized for development, running `npm run dev` inside a Node.js container with all Playwright dependencies pre-installed.
 
 1. **Start the Development Container**:
+   Using Docker directly:
    ```bash
    docker compose up -d --build
-   # Alternatively, use the shorthand -> npm run dev:docker
+   ```
+
+   **Alternative (Shorthand)**:
+   ```bash
+   npm run dev:docker
    ```
    This will build the image, install dependencies, and start n8n in development watch mode.
 
