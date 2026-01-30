@@ -122,24 +122,29 @@ The script's return value is included in the node output:
 ## 📦 Installation
 
 ### n8n Community Nodes
-
 1. Go to **Settings** → **Community Nodes**
 2. Select **Install**
 3. Enter `n8n-nodes-playwright-automation`
 4. Agree to the risks and select **Install**
 
-### Manual Installation
+The node will **automatically download the required browser binaries** the first time you execute it.
 
+> [!IMPORTANT]
+> **Linux Users (Docker/Self-hosted):**
+> While the node automatically downloads the **browser binaries** (Chromium), your system must have the **required operating system libraries** installed.
+> 
+> If you see errors about missing libraries (e.g., `libnss3`, `libgbm1`), you may need to install Playwright dependencies in your container:
+> ```bash
+> npx playwright install-deps chromium
+> ```
+> Or use our [Docker Compose setup](#-docker-support) which handles this automatically.
+
+### Manual Installation
+If you prefer to install manually:
 ```bash
+cd ~/.n8n/nodes
 npm install n8n-nodes-playwright-automation
 ```
-
-> [!NOTE]
-> **Automatic Setup:** During installation, the package automatically:
-> - Installs required system dependencies (Linux only)
-> - Downloads the Chromium browser
->
-> No additional configuration is required. The node works out-of-the-box on local machines and cloud servers.
 
 ---
 
