@@ -1,3 +1,6 @@
+import { execSync } from 'child_process';
+import * as fs from 'fs';
+
 import {
     chromium,
     firefox,
@@ -7,8 +10,6 @@ import {
     type Page
 } from 'playwright';
 import { v4 as uuidv4 } from 'uuid';
-import { execSync } from 'child_process';
-import * as fs from 'fs';
 
 import type { BrowserConfiguration } from './types/interfaces/BrowserConfiguration';
 import type { BrowserSession } from './types/interfaces/BrowserSession';
