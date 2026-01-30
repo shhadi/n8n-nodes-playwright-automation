@@ -28,9 +28,7 @@
 		"release": "n8n-node release",
 		"prepublishOnly": "n8n-node pr release",
 		"cloud-support:disable": "npx n8n-node cloud-support disable",
-		"cloud-support:enable": "npx n8n-node cloud-support enable",
-		"postinstall": "npm config set yes true && node dist/nodes/scripts/setup-browsers.js || echo 'Postinstall skipped (dist not found)'",
-		"setup": "npm config set yes true && node dist/nodes/scripts/setup-browsers.js"
+		"cloud-support:enable": "npx n8n-node cloud-support enable"
 	},
 	"files": [
 		"dist",

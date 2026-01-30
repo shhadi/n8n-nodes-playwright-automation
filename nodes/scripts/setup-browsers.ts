@@ -155,6 +155,7 @@ function verifyLinuxDependencies(): void {
 
 async function setupBrowsers() {
     try {
+			return;
         // 1. First log the environment
         console.log('Current working directory:', process.cwd());
         console.log('Operating System:', platform());
