@@ -1,11 +1,4 @@
 <div align="center">
-
-> 
-> <span style="color:red"><b>⚠️ This node currently works on local/self-hosted n8n instances only. Cloud-based n8n is not supported yet. We are actively working on adding cloud support!</b></span>
-
-</div>
-
-<div align="center">
   <img src="./nodes/PlaywrightAutomation/playwright-automation.svg" width="120" alt="n8n-nodes-playwright-automation Logo" />
   <h1>n8n-nodes-playwright-automation</h1>
 
@@ -140,6 +133,13 @@ The script's return value is included in the node output:
 ```bash
 npm install n8n-nodes-playwright-automation
 ```
+
+> [!NOTE]
+> **Automatic Setup:** During installation, the package automatically:
+> - Installs required system dependencies (Linux only)
+> - Downloads the Chromium browser
+>
+> No additional configuration is required. The node works out-of-the-box on local machines and cloud servers.
 
 ---
 

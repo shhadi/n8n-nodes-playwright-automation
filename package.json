@@ -21,17 +21,19 @@
 		"build:watch": "tsc --watch",
 		"dev": "n8n-node dev",
 		"dev:clean": "npm run clean && npm run dev",
-		"dev:docker": "docker compose up -d --build",
+		"dev:docker": "docker compose down --remove-orphans --volumes --rmi local && docker compose up -d --build --force-recreate",
 		"test": "vitest run --coverage",
 		"lint": "n8n-node lint",
 		"lint:fix": "n8n-node lint --fix",
 		"release": "n8n-node release",
 		"prepublishOnly": "n8n-node prerelease",
+		"postinstall": "node scripts/postinstall.js",
 		"cloud-support:disable": "npx n8n-node cloud-support disable",
 		"cloud-support:enable": "npx n8n-node cloud-support enable"
 	},
 	"files": [
-		"dist"
+		"dist",
+		"scripts"
 	],
 	"n8n": {
 		"n8nNodesApiVersion": 1,
