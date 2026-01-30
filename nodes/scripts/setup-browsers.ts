@@ -158,7 +158,15 @@ async function setupBrowsers() {
         // 1. First log the environment
         console.log('Current working directory:', process.cwd());
         console.log('Operating System:', platform());
+        console.log('Operating System:', platform());
         console.log('Node version:', process.version);
+
+        // 1.1 Check if running in managed environment (e.g. Playwright Docker)
+        if (process.env.PLAYWRIGHT_BROWSERS_PATH) {
+            console.log(`\n✨ Playwright managed environment detected (${process.env.PLAYWRIGHT_BROWSERS_PATH}).`);
+            console.log('Skipping local browser setup.');
+            return;
+        }
 
         // 2. Check and install Linux dependencies if needed
         if (platform() === 'linux') {

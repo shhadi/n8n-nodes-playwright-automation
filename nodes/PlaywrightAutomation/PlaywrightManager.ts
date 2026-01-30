@@ -105,8 +105,16 @@ export class PlaywrightManager {
     /**
      * Ensures the browser is installed before attempting to launch.
      * This uses the custom setup-browsers script and local browsers directory.
+     * Returns undefined if using global system browsers (Docker).
      */
-    private async ensureBrowserInstalled(browserName: string): Promise<string> {
+    private async ensureBrowserInstalled(browserName: string): Promise<string | undefined> {
+        // If running in official Docker image with global browsers
+        if (process.env.PLAYWRIGHT_BROWSERS_PATH) {
+            // eslint-disable-next-line no-console
+            console.log(`🎭 Playwright: Using global browser for "${browserName}" from ${process.env.PLAYWRIGHT_BROWSERS_PATH}`);
+            return undefined;
+        }
+
         // Return cached path if available
         if (verifiedBrowsers.has(browserName)) {
             return verifiedBrowsers.get(browserName)!;
