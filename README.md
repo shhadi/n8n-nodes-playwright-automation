@@ -1,6 +1,6 @@
 <div align="center">
 
-> [!IMPORTANT]
+> 
 > <span style="color:red"><b>⚠️ This node currently works on local/self-hosted n8n instances only. Cloud-based n8n is not supported yet. We are actively working on adding cloud support!</b></span>
 
 </div>
