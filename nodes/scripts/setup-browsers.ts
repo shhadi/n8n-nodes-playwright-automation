@@ -39,6 +39,15 @@ function checkAndInstallLinuxDependencies(): boolean {
         // Try to use Playwright's built-in dependency installer
         console.log('Installing Playwright system dependencies...');
 
+        if (hasRoot) {
+            try {
+                console.log('🔄 Running as root. Updating apt-get...');
+                execSync('apt-get update', { stdio: 'inherit' });
+            } catch (e) {
+                console.warn('⚠️  apt-get update failed:', e);
+            }
+        }
+
         try {
             execSync('npx playwright install-deps chromium', {
                 stdio: 'inherit',
@@ -48,6 +57,43 @@ function checkAndInstallLinuxDependencies(): boolean {
             return true;
         } catch (error) {
             console.warn('⚠️  Automatic dependency installation failed.');
+
+            if (hasRoot) {
+                console.log('🔄 Running as root. Attempting manual installation via apt-get...');
+                try {
+                    // Update package list
+                    execSync('apt-get update', { stdio: 'inherit' });
+
+                    // List of dependencies required for Chromium
+                    const deps = [
+                        'libwoff1', 'libopus0', 'libwebp6', 'libwebpdemux2', 'libenchant1c2a',
+                        'libgudev-1.0-0', 'libsecret-1-0', 'libhyphen0', 'libgdk-pixbuf2.0-0',
+                        'libegl1', 'libnotify4', 'libxslt1.1', 'libevent-2.1-7', 'libgles2',
+                        'libvpx6', 'libxcomposite1', 'libatk-bridge2.0-0', 'libatk1.0-0',
+                        'libatspi2.0-0', 'libcairo2', 'libepoxy0', 'libfontconfig1',
+                        'libfreetype6', 'libgbm1', 'libglib2.0-0', 'libharfbuzz0b',
+                        'libicu66', 'libjpeg8', 'libpango-1.0-0', 'libpangocairo-1.0-0',
+                        'libpangoft2-1.0-0', 'libpixman-1-0', 'libpng16-16',
+                        'libwayland-client0', 'libwayland-egl1', 'libwayland-server0',
+                        'libx11-6', 'libdbus-glib-1-2', 'libxt6', 'libxcb1', 'libxext6',
+                        'libxfixes3', 'libpci3', 'libasound2', 'libxi6', 'libxkbcommon0',
+                        'libxrandr2', 'libxrender1', 'libxshmfence1', 'libgtk-3-0',
+                        'fonts-liberation', 'fonts-noto-color-emoji', 'ttf-ubuntu-font-family',
+                        'libnspr4', 'libnss3'
+                    ];
+
+                    const installCmd = `apt-get install -y --no-install-recommends ${deps.join(' ')}`;
+                    execSync(installCmd, { stdio: 'inherit' });
+
+                    execSync('rm -rf /var/lib/apt/lists/*', { stdio: 'inherit' });
+
+                    console.log('✅ Manual system dependency installation completed!');
+                    return true;
+                } catch (manualError) {
+                    console.error('❌ Manual installation failed:', manualError);
+                }
+            }
+
             console.log('\n📋 Please install the following dependencies manually:');
             console.log('sudo apt-get update && sudo apt-get install -y \\');
             console.log('    libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 \\');

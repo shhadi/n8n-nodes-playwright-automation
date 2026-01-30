@@ -18,6 +18,7 @@
 	"scripts": {
 		"clean": "rm -rf dist && rm -rf ~/.n8n-node-cli",
 		"build": "n8n-node build",
+		"postbuild": "npm run setup",
 		"build:watch": "tsc --watch",
 		"dev": "n8n-node dev",
 		"dev:clean": "npm run clean && npm run dev",
