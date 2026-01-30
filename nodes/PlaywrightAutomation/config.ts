@@ -22,7 +22,7 @@ export type BrowserType = 'chromium' | 'firefox' | 'webkit';
 export const browserPaths: BrowserPaths = {
     'chromium': {
         windows: ['chrome-win', 'chrome.exe'],
-        linux: ['chrome-linux', 'chrome'],
+        linux: ['chrome-linux64', 'chrome'],
         darwin: ['chrome-mac', 'Chromium.app', 'Contents', 'MacOS', 'Chromium']
     },
     'firefox': {
