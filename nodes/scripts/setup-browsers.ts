@@ -254,6 +254,7 @@ async function setupBrowsers() {
 
 export async function installBrowser(browserType: BrowserType) {
     try {
+			return;
         console.log(`Installing ${browserType}...`);
         const browsersPath = join(__dirname, '..', 'browsers');
 
