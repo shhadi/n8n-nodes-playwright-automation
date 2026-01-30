@@ -2,6 +2,8 @@ FROM node:22-bookworm
 
 WORKDIR /app
 
+
+
 # Install n8n globally
 RUN npm install -g n8n
 

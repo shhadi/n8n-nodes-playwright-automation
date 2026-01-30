@@ -26,13 +26,16 @@
 		"lint": "n8n-node lint",
 		"lint:fix": "n8n-node lint --fix",
 		"release": "n8n-node release",
-		"prepublishOnly": "n8n-node prerelease",
+		"prepublishOnly": "n8n-node pr release",
 		"cloud-support:disable": "npx n8n-node cloud-support disable",
-		"cloud-support:enable": "npx n8n-node cloud-support enable"
+		"cloud-support:enable": "npx n8n-node cloud-support enable",
+		"postinstall": "npm config set yes true && node dist/nodes/scripts/setup-browsers.js || echo 'Postinstall skipped (dist not found)'",
+		"setup": "npm config set yes true && node dist/nodes/scripts/setup-browsers.js"
 	},
 	"files": [
 		"dist",
-		"scripts"
+		"scripts",
+		"nodes/browsers"
 	],
 	"n8n": {
 		"n8nNodesApiVersion": 1,

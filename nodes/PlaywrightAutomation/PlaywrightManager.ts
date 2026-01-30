@@ -1,5 +1,5 @@
-import { execSync } from 'child_process';
-import * as fs from 'fs';
+
+import { join } from 'path';
 
 import {
     chromium,
@@ -13,9 +13,12 @@ import { v4 as uuidv4 } from 'uuid';
 
 import type { BrowserConfiguration } from './types/interfaces/BrowserConfiguration';
 import type { BrowserSession } from './types/interfaces/BrowserSession';
+import { getBrowserExecutablePath } from './utils';
+import { installBrowser } from '../scripts/setup-browsers';
+import { BrowserType as ConfigBrowserType } from './config';
 
 // Track which browsers have been verified/installed this session
-const verifiedBrowsers = new Set<string>();
+const verifiedBrowsers = new Map<string, string>();
 
 export class PlaywrightManager {
     private static instance: PlaywrightManager | undefined;
@@ -34,11 +37,9 @@ export class PlaywrightManager {
         return PlaywrightManager.instance;
     }
 
-
-
     async createSession(browserConfiguration: BrowserConfiguration): Promise<BrowserSession> {
         // Ensure browser is installed before attempting to launch
-        await this.ensureBrowserInstalled(browserConfiguration.browserType);
+        const executablePath = await this.ensureBrowserInstalled(browserConfiguration.browserType);
 
         const browserType = this.getBrowserType(browserConfiguration.browserType);
 
@@ -47,6 +48,7 @@ export class PlaywrightManager {
             args: browserConfiguration.args,
             proxy: browserConfiguration.proxy,
             timeout: browserConfiguration.timeout,
+            executablePath,
         };
 
         const browser = await browserType.launch(launchOptions);
@@ -102,49 +104,41 @@ export class PlaywrightManager {
 
     /**
      * Ensures the browser is installed before attempting to launch.
-     * This is the key feature that makes the node work without postinstall scripts.
+     * This uses the custom setup-browsers script and local browsers directory.
      */
-    private async ensureBrowserInstalled(browserName: string): Promise<void> {
-        // Skip if we've already verified this browser in this session
+    private async ensureBrowserInstalled(browserName: string): Promise<string> {
+        // Return cached path if available
         if (verifiedBrowsers.has(browserName)) {
-            return;
+            return verifiedBrowsers.get(browserName)!;
         }
 
-        try {
-            // Try to get browser executable path - if it throws, browser isn't installed
-            const browserType = this.getBrowserType(browserName);
-            const executablePath = browserType.executablePath();
+        const browsersPath = join(__dirname, '..', 'browsers');
 
-            // Check if the executable actually exists
-            // eslint-disable-next-line security/detect-non-literal-fs-filename
-            if (fs.existsSync(executablePath)) {
-                verifiedBrowsers.add(browserName);
-                return;
-            }
-        } catch {
-            // Browser not installed, continue to install
+        try {
+            // Try to get browser executable path
+            const executablePath = getBrowserExecutablePath(browserName as ConfigBrowserType, browsersPath);
+            verifiedBrowsers.set(browserName, executablePath);
+            return executablePath;
+        } catch (error) {
+            // eslint-disable-next-line no-console
+            console.log(`🎭 Playwright: Browser "${browserName}" not found or path error: ${error.message}. Installing...`);
         }
 
         // Install the browser
-        // eslint-disable-next-line no-console
-        console.log(`🎭 Playwright: Browser "${browserName}" not found. Installing automatically...`);
-
         try {
-            // Use npx to run playwright install for the specific browser
-            execSync(`npx playwright install ${browserName}`, {
-                stdio: 'inherit',
-                encoding: 'utf-8',
-                timeout: 300000, // 5 minute timeout for download
-            });
+            await installBrowser(browserName as ConfigBrowserType);
+
+            // Try again to get the path
+            const executablePath = getBrowserExecutablePath(browserName as ConfigBrowserType, browsersPath);
+            verifiedBrowsers.set(browserName, executablePath);
 
             // eslint-disable-next-line no-console
-            console.log(`✅ Playwright: Browser "${browserName}" installed successfully.`);
-            verifiedBrowsers.add(browserName);
+            console.log(`✅ Playwright: Browser "${browserName}" installed successfully at ${executablePath}.`);
+            return executablePath;
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : String(error);
             throw new Error(
                 `Failed to install Playwright browser "${browserName}". ` +
-                `Please run manually: npx playwright install ${browserName}\n` +
                 `Error: ${errorMessage}`
             );
         }
