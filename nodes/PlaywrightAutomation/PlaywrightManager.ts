@@ -6,7 +6,7 @@ import {
     firefox,
     webkit,
     type Browser,
-    type BrowserType,
+    type BrowserType as PlaywrightBrowserType,
     type Page
 } from 'playwright';
 import { v4 as uuidv4 } from 'uuid';
@@ -15,10 +15,10 @@ import type { BrowserConfiguration } from './types/interfaces/BrowserConfigurati
 import type { BrowserSession } from './types/interfaces/BrowserSession';
 import { getBrowserExecutablePath } from './utils';
 import { installBrowser } from '../scripts/setup-browsers';
-import { BrowserType as ConfigBrowserType } from './config';
+import { BrowserType } from './types/enums/BrowserType';
 
 // Track which browsers have been verified/installed this session
-const verifiedBrowsers = new Map<string, string>();
+const verifiedBrowsers = new Map<BrowserType, string>();
 
 export class PlaywrightManager {
     private static instance: PlaywrightManager | undefined;
@@ -107,7 +107,7 @@ export class PlaywrightManager {
      * This uses the custom setup-browsers script and local browsers directory.
      * Returns undefined if using global system browsers (Docker).
      */
-    private async ensureBrowserInstalled(browserName: string): Promise<string | undefined> {
+    private async ensureBrowserInstalled(browserName: BrowserType): Promise<string | undefined> {
         // If running in official Docker image with global browsers
         if (process.env.PLAYWRIGHT_BROWSERS_PATH) {
             // eslint-disable-next-line no-console
@@ -124,7 +124,7 @@ export class PlaywrightManager {
 
         try {
             // Try to get browser executable path
-            const executablePath = getBrowserExecutablePath(browserName as ConfigBrowserType, browsersPath);
+            const executablePath = getBrowserExecutablePath(browserName, browsersPath);
             verifiedBrowsers.set(browserName, executablePath);
             return executablePath;
         } catch (error) {
@@ -134,10 +134,10 @@ export class PlaywrightManager {
 
         // Install the browser
         try {
-            await installBrowser(browserName as ConfigBrowserType);
+            await installBrowser(browserName);
 
             // Try again to get the path
-            const executablePath = getBrowserExecutablePath(browserName as ConfigBrowserType, browsersPath);
+            const executablePath = getBrowserExecutablePath(browserName, browsersPath);
             verifiedBrowsers.set(browserName, executablePath);
 
             // eslint-disable-next-line no-console
@@ -152,14 +152,15 @@ export class PlaywrightManager {
         }
     }
 
-    private getBrowserType(type: string): BrowserType {
+    private getBrowserType(type: BrowserType): PlaywrightBrowserType {
         switch (type) {
-            case 'firefox':
+            case BrowserType.Firefox:
                 return firefox;
-            case 'webkit':
+            case BrowserType.WebKit:
                 return webkit;
             default:
                 return chromium;
         }
     }
 }
+

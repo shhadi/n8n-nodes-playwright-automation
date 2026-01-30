@@ -1,36 +1,38 @@
+import { BrowserType } from './types/enums/BrowserType';
 
 export interface BrowserPaths {
-    chromium: {
+    [BrowserType.Chromium]: {
         windows: string[];
         linux: string[];
         darwin: string[];
     };
-    firefox: {
+    [BrowserType.Firefox]: {
         windows: string[];
         linux: string[];
         darwin: string[];
     };
-    webkit: {
+    [BrowserType.WebKit]: {
         windows: string[];
         linux: string[];
         darwin: string[];
     };
 }
 
-export type BrowserType = 'chromium' | 'firefox' | 'webkit';
+
+export { BrowserType };
 
 export const browserPaths: BrowserPaths = {
-    'chromium': {
+    [BrowserType.Chromium]: {
         windows: ['chrome-win', 'chrome.exe'],
         linux: ['chrome-linux64', 'chrome'],
         darwin: ['chrome-mac', 'Chromium.app', 'Contents', 'MacOS', 'Chromium']
     },
-    'firefox': {
+    [BrowserType.Firefox]: {
         windows: ['firefox', 'firefox.exe'],
         linux: ['firefox', 'firefox'],
         darwin: ['firefox', 'Firefox.app', 'Contents', 'MacOS', 'firefox']
     },
-    'webkit': {
+    [BrowserType.WebKit]: {
         windows: ['webkit-*', 'Playwright.exe'],
         linux: ['webkit-*', 'minibrowser-gtk', 'pw_run.sh'],
         darwin: ['webkit-*', 'Playwright.app', 'Contents', 'MacOS', 'Playwright']

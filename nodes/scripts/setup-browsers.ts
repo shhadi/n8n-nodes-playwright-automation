@@ -230,7 +230,7 @@ async function setupBrowsers() {
         }
 
         // 9. Verify each browser executable
-        const browsers: BrowserType[] = ['chromium', 'firefox', 'webkit'];
+        const browsers: BrowserType[] = [BrowserType.Chromium, BrowserType.Firefox, BrowserType.WebKit];
         for (const browserType of browsers) {
             const browserDir = installedFiles.find(f => f.startsWith(browserType));
 
