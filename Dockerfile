@@ -5,8 +5,9 @@ WORKDIR /app
 # Install n8n globally
 RUN npm install -g n8n
 
-# Copy package files
+# Copy package files and scripts (scripts needed for postinstall)
 COPY package.json package-lock.json ./
+COPY scripts ./scripts/
 
 # Install dependencies
 RUN npm install
