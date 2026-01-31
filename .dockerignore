@@ -1,6 +1,0 @@
-node_modules
-dist
-nodes/browsers
-.git
-.gitignore
-.DS_Store
