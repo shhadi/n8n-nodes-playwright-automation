@@ -25,7 +25,7 @@ RUN npm install -g n8n
 # We install all browsers to ensure full compatibility
 ENV PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
 RUN apt-get update && \
-    npx playwright@1.58.0 install --with-deps && \
+    npx -y playwright@1.58.0 install --with-deps && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy built artifacts and production dependencies from builder
