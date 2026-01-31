@@ -132,10 +132,10 @@ The node will **automatically download the required browser binaries** the first
 > [!IMPORTANT]
 > **Linux Users (Docker/Self-hosted):**
 >
-> **The easiest way to run this node:** Use our [Docker setup](#-docker-support).
+> **We strongly recommend using our [Docker setup](#-docker-support) to avoid any issues.**
 > It uses the official Playwright image which comes pre-loaded with all required system libraries and browsers.
 >
-> If you are **not** using our Docker image, you must ensure your environment has all Playwright system dependencies installed (e.g., `libnspr4`, `libnss3`, `libgbm1`).
+> **If you choose to use a different or custom n8n image**, you **MUST** ensure your environment has all Playwright system dependencies installed (e.g., `libnspr4`, `libnss3`, `libgbm1`). The node will not work without these libraries.
 >
 > **Using custom Docker image?**
 > We strongly recommend basing your image on the official Playwright image:
@@ -153,6 +153,12 @@ npm install n8n-nodes-playwright-automation
 ---
 
 ## 🐳 Docker Support
+> [!TIP]
+> **Why use our Docker setup?**
+>
+> Our Docker image is pre-configured with all the necessary system dependencies and libraries required for Playwright to run correctly.
+>
+> **If you use a different n8n image, you will likely run into issues** unless you manually install all the required libraries for headless browsers.
 
 To run this node in Docker, we provide a `docker-compose.yml` file that:
 1. Installs all required Playwright browser dependencies
