@@ -1,9 +1,6 @@
 #!/bin/sh
 set -e
 
-echo "Building node..."
-npm run build
-
 echo "Linking node..."
 mkdir -p /root/.n8n/custom/node_modules
 # Remove if exists (to be safe)
