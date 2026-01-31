@@ -31,8 +31,7 @@
 		"cloud-support:enable": "npx n8n-node cloud-support enable"
 	},
 	"files": [
-		"dist",
-		"nodes/browsers"
+		"dist"
 	],
 	"n8n": {
 		"n8nNodesApiVersion": 1,
