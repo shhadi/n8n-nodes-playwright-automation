@@ -11,10 +11,10 @@ import {
 } from 'playwright';
 import { v4 as uuidv4 } from 'uuid';
 
+import { BrowserType } from './types/enums/BrowserType';
 import type { BrowserConfiguration } from './types/interfaces/BrowserConfiguration';
 import type { BrowserSession } from './types/interfaces/BrowserSession';
 import { getBrowserExecutablePath } from './utils';
-import { BrowserType } from './types/enums/BrowserType';
 
 // Track which browsers have been verified/installed this session
 const verifiedBrowsers = new Map<BrowserType, string>();

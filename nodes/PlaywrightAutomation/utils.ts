@@ -1,7 +1,9 @@
-import { join } from 'path';
-import { BrowserType, browserPaths } from './config';
-import { platform } from 'os';
 import { readdirSync, existsSync } from 'fs';
+import { platform } from 'os';
+import { join } from 'path';
+
+import type { BrowserType} from './config';
+import { browserPaths } from './config';
 
 export function getBrowserExecutablePath(browserType: BrowserType, basePath: string): string {
     const os = platform();
