@@ -14,7 +14,6 @@ import { v4 as uuidv4 } from 'uuid';
 import type { BrowserConfiguration } from './types/interfaces/BrowserConfiguration';
 import type { BrowserSession } from './types/interfaces/BrowserSession';
 import { getBrowserExecutablePath } from './utils';
-import { installBrowser } from '../scripts/setup-browsers';
 import { BrowserType } from './types/enums/BrowserType';
 
 // Track which browsers have been verified/installed this session
@@ -134,8 +133,6 @@ export class PlaywrightManager {
 
         // Install the browser
         try {
-            await installBrowser(browserName);
-
             // Try again to get the path
             const executablePath = getBrowserExecutablePath(browserName, browsersPath);
             verifiedBrowsers.set(browserName, executablePath);
