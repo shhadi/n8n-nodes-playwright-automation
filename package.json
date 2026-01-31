@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-playwright-automation",
-	"version": "0.4.3",
+	"version": "0.5.0",
 	"description": "Community Playwright integration for n8n. Run reliable headless browser automations (scraping, form filling, login flows, PDF/screenshots, E2E checks) powered by Playwright — directly inside n8n workflows.",
 	"license": "MIT",
 	"homepage": "",
