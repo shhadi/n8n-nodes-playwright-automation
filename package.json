@@ -26,14 +26,12 @@
 		"lint": "n8n-node lint",
 		"lint:fix": "n8n-node lint --fix",
 		"release": "n8n-node release",
-		"prepublishOnly": "n8n-node prerelease",
-		"postinstall": "node scripts/postinstall.js",
+		"prepublishOnly": "n8n-node pr release",
 		"cloud-support:disable": "npx n8n-node cloud-support disable",
 		"cloud-support:enable": "npx n8n-node cloud-support enable"
 	},
 	"files": [
-		"dist",
-		"scripts"
+		"dist"
 	],
 	"n8n": {
 		"n8nNodesApiVersion": 1,

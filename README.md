@@ -131,13 +131,17 @@ The node will **automatically download the required browser binaries** the first
 
 > [!IMPORTANT]
 > **Linux Users (Docker/Self-hosted):**
-> While the node automatically downloads the **browser binaries** (Chromium), your system must have the **required operating system libraries** installed.
-> 
-> If you see errors about missing libraries (e.g., `libnss3`, `libgbm1`), you may need to install Playwright dependencies in your container:
-> ```bash
-> npx playwright install-deps chromium
+>
+> **The easiest way to run this node:** Use our [Docker setup](#-docker-support).
+> It uses the official Playwright image which comes pre-loaded with all required system libraries and browsers.
+>
+> If you are **not** using our Docker image, you must ensure your environment has all Playwright system dependencies installed (e.g., `libnspr4`, `libnss3`, `libgbm1`).
+>
+> **Using custom Docker image?**
+> We strongly recommend basing your image on the official Playwright image:
+> ```dockerfile
+> FROM mcr.microsoft.com/playwright:v1.58.0-noble
 > ```
-> Or use our [Docker Compose setup](#-docker-support) which handles this automatically.
 
 ### Manual Installation
 If you prefer to install manually:
@@ -179,7 +183,8 @@ This project includes a Docker setup optimized for development, running `npm run
 
 ### Configuration
 
-The provided `docker-compose.yml` uses a custom `Dockerfile` based on `node:22-bookworm` to ensure Playwright and its system dependencies are available.
+The provided `docker-compose.yml` uses a custom `Dockerfile` based on the official **Playwright Docker image** (`mcr.microsoft.com/playwright:v1.58.0-noble`).
+This ensures Node.js 22, all system dependencies, and required browsers are pre-installed and optimized.
 
 
 ---
