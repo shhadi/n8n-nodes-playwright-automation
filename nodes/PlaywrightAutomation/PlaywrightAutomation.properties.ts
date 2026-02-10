@@ -349,10 +349,6 @@ export const playwrightNodeProperties: INodeProperties[] = [
 		type: 'options',
 		default: 'A4',
 		options: [
-			{ name: 'Letter', value: 'Letter' },
-			{ name: 'Legal', value: 'Legal' },
-			{ name: 'Tabloid', value: 'Tabloid' },
-			{ name: 'Ledger', value: 'Ledger' },
 			{ name: 'A0', value: 'A0' },
 			{ name: 'A1', value: 'A1' },
 			{ name: 'A2', value: 'A2' },
@@ -360,6 +356,10 @@ export const playwrightNodeProperties: INodeProperties[] = [
 			{ name: 'A4', value: 'A4' },
 			{ name: 'A5', value: 'A5' },
 			{ name: 'A6', value: 'A6' },
+			{ name: 'Ledger', value: 'Ledger' },
+			{ name: 'Legal', value: 'Legal' },
+			{ name: 'Letter', value: 'Letter' },
+			{ name: 'Tabloid', value: 'Tabloid' },
 		],
 		displayOptions: {
 			show: {
