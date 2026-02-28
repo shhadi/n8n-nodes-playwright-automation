@@ -10,8 +10,7 @@
       "exclude": [],
       "include": [
         "refs/heads/main",
-        "~DEFAULT_BRANCH",
-        "refs/heads/develop"
+        "~DEFAULT_BRANCH"
       ]
     }
   },
