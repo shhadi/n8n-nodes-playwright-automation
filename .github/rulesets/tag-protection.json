@@ -1,0 +1,34 @@
+{
+  "id": 13348449,
+  "name": "tag-protection",
+  "target": "tag",
+  "source_type": "Repository",
+  "source": "shhadi/n8n-nodes-playwright-automation",
+  "enforcement": "active",
+  "conditions": {
+    "ref_name": {
+      "exclude": [],
+      "include": [
+        "~ALL"
+      ]
+    }
+  },
+  "rules": [
+    {
+      "type": "deletion"
+    },
+    {
+      "type": "non_fast_forward"
+    },
+    {
+      "type": "creation"
+    },
+    {
+      "type": "update"
+    },
+    {
+      "type": "required_linear_history"
+    }
+  ],
+  "bypass_actors": []
+}
