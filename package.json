@@ -42,11 +42,16 @@
 		]
 	},
 	"devDependencies": {
-		"@n8n/node-cli": "*",
+		"@eslint/js": "^10.0.1",
+		"@n8n/eslint-plugin-community-nodes": "^0.8.0",
+		"@n8n/node-cli": "^0.21.0",
 		"@types/node": "^25.0.10",
+		"@typescript-eslint/eslint-plugin": "^8.56.1",
+		"@typescript-eslint/parser": "^8.56.1",
 		"@vitest/coverage-v8": "^4.0.18",
-		"eslint": "10.0.2",
+		"eslint": "9.14.0",
 		"eslint-plugin-import": "^2.32.0",
+		"eslint-plugin-n8n-nodes-base": "^1.16.6",
 		"eslint-plugin-security": "^4.0.0",
 		"eslint-plugin-unused-imports": "^4.3.0",
 		"prettier": "3.8.1",
