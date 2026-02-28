@@ -12,12 +12,12 @@ importers:
         specifier: '*'
         version: 1.120.9
       playwright:
-        specifier: ^1.58.0
+        specifier: ^1.58.2
         version: 1.58.2
     devDependencies:
       '@eslint/js':
-        specifier: ^9.29.0
-        version: 9.29.0
+        specifier: ^9.39.3
+        version: 9.39.3
       '@n8n/eslint-plugin-community-nodes':
         specifier: ^0.8.0
         version: 0.8.0(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3)
@@ -25,7 +25,7 @@ importers:
         specifier: ^0.21.0
         version: 0.21.0(@browserbasehq/sdk@2.7.0)(@browserbasehq/stagehand@1.14.0(@playwright/test@1.58.2)(deepmerge@4.3.1)(dotenv@17.3.1)(openai@6.25.0(ws@8.19.0)(zod@3.25.67))(zod@3.25.67))(@ibm-cloud/watsonx-ai@1.7.8)(@typescript-eslint/utils@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.3(jiti@2.6.1)))(eslint@9.39.3(jiti@2.6.1))(ibm-cloud-sdk-core@5.4.8)(ignore@5.3.2)(jsonwebtoken@9.0.3)(lodash@4.17.23)(openai@6.25.0(ws@8.19.0)(zod@3.25.67))(playwright@1.58.2)(typescript@5.9.3)(ws@8.19.0)
       '@types/node':
-        specifier: ^25.0.10
+        specifier: ^25.3.2
         version: 25.3.2
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.56.1
@@ -49,7 +49,7 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0
       eslint-plugin-unused-imports:
-        specifier: ^4.3.0
+        specifier: ^4.4.1
         version: 4.4.1(@typescript-eslint/eslint-plugin@8.56.1(@typescript-eslint/parser@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.3(jiti@2.6.1))
       prettier:
         specifier: 3.8.1
@@ -303,10 +303,6 @@ packages:
 
   '@eslint/eslintrc@3.3.4':
     resolution: {integrity: sha512-4h4MVF8pmBsncB60r0wSJiIeUKTSD4m7FmTFThG8RHlsg9ajqckLm9OraguFGZE4vVdpiI1Q4+hFnisopmG6gQ==}
-    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
-
-  '@eslint/js@9.29.0':
-    resolution: {integrity: sha512-3PIF4cBw/y+1u2EazflInpV+lYsSG0aByVIQzAgb1m1MhHFSbqTyNqtBKHgWf/9Ykud+DhILS9EGkmekVhbKoQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
   '@eslint/js@9.39.3':
@@ -996,8 +992,8 @@ packages:
   '@nodeutils/defaults-deep@1.1.0':
     resolution: {integrity: sha512-gG44cwQovaOFdSR02jR9IhVRpnDP64VN6JdjYJTfNz4J4fWn7TQnmrf22nSjRqlwlxPcW8PL/L3KbJg3tdwvpg==}
 
-  '@oclif/core@4.8.1':
-    resolution: {integrity: sha512-07mq0vKCWNsB85ZHeBMlTAiO0KLFqHyAeRK3bD2K8CI1tX3tiwkWw1lZQZkiw8MUBrhxdROhMkYMY4Q0l7JHqA==}
+  '@oclif/core@4.8.2':
+    resolution: {integrity: sha512-P+XAOtuWM/Fewau64c31bYUiLFJTzhth229xVbBrG1siLc7+2uezUYhP5eWn/++nZPZ/wChSqYgQNN4HPw/ZHQ==}
     engines: {node: '>=18.0.0'}
 
   '@octokit/auth-token@6.0.0':
@@ -3918,13 +3914,13 @@ snapshots:
 
   '@clack/core@0.5.0':
     dependencies:
-      picocolors: 1.1.1
+      picocolors: 1.0.1
       sisteransi: 1.0.5
 
   '@clack/prompts@0.11.0':
     dependencies:
       '@clack/core': 0.5.0
-      picocolors: 1.1.1
+      picocolors: 1.0.1
       sisteransi: 1.0.5
 
   '@emnapi/core@1.8.1':
@@ -4057,8 +4053,6 @@ snapshots:
       strip-json-comments: 3.1.1
     transitivePeerDependencies:
       - supports-color
-
-  '@eslint/js@9.29.0': {}
 
   '@eslint/js@9.39.3': {}
 
@@ -4680,7 +4674,7 @@ snapshots:
       '@clack/prompts': 0.11.0
       '@n8n/ai-node-sdk': 0.2.0(@browserbasehq/sdk@2.7.0)(@browserbasehq/stagehand@1.14.0(@playwright/test@1.58.2)(deepmerge@4.3.1)(dotenv@17.3.1)(openai@6.25.0(ws@8.19.0)(zod@3.25.67))(zod@3.25.67))(@ibm-cloud/watsonx-ai@1.7.8)(ibm-cloud-sdk-core@5.4.8)(ignore@5.3.2)(jsonwebtoken@9.0.3)(lodash@4.17.23)(openai@6.25.0(ws@8.19.0)(zod@3.25.67))(playwright@1.58.2)(ws@8.19.0)
       '@n8n/eslint-plugin-community-nodes': 0.8.0(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3)
-      '@oclif/core': 4.8.1
+      '@oclif/core': 4.8.2
       change-case: 5.4.4
       eslint: 9.39.3(jiti@2.6.1)
       eslint-import-resolver-typescript: 4.4.4(eslint-plugin-import-x@4.16.1(@typescript-eslint/utils@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint@9.39.3(jiti@2.6.1)))(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.3(jiti@2.6.1)))(eslint@9.39.3(jiti@2.6.1))
@@ -4865,7 +4859,7 @@ snapshots:
     dependencies:
       lodash: 4.17.23
 
-  '@oclif/core@4.8.1':
+  '@oclif/core@4.8.2':
     dependencies:
       ansi-escapes: 4.3.2
       ansis: 3.17.0
